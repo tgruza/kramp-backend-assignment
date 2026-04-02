@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: product-aggregator-test
+  threads:
+    virtual:
+      enabled: true
+
+aggregator:
+  timeout:
+    catalog-ms: 1000
+    pricing-ms: 1000
+    availability-ms: 1000
+    customer-ms: 1000
+
+logging:
+  level:
+    com.tccc.aggregator: DEBUG
