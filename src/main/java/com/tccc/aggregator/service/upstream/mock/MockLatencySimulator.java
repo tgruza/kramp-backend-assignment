@@ -1,15 +1,18 @@
 package com.tccc.aggregator.service.upstream.mock;
 
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-@Slf4j
-@UtilityClass
-class MockLatencySimulator {
+final class MockLatencySimulator {
 
-    void simulate(String serviceName, long typicalLatencyMs, double reliabilityPct) {
+    private static final Logger log = LoggerFactory.getLogger(MockLatencySimulator.class);
+
+    private MockLatencySimulator() {
+    }
+
+    static void simulate(String serviceName, long typicalLatencyMs, double reliabilityPct) {
         long minLatency = typicalLatencyMs / 2;
         long maxLatency = typicalLatencyMs * 2;
         long actualLatency = ThreadLocalRandom.current().nextLong(minLatency, maxLatency + 1);
