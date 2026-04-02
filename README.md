@@ -9,6 +9,8 @@ A backend service that aggregates product information from multiple upstream ser
 - **Java 21+** (required for virtual threads, JEP 444)
 - **Maven 3.8+** (wrapper included)
 
+The project uses standard Spring constructor injection and plain Java classes. No annotation processing setup is required.
+
 ### Build and run
 
 ```bash
@@ -138,6 +140,8 @@ This demonstrates understanding that real upstream services exhibit exactly this
 | **Liskov Substitution** | Mock services implement the same upstream interfaces that production HTTP clients would. The orchestrator depends only on these interfaces. Swapping mocks for real implementations requires zero code changes in the orchestrator. |
 | **Interface Segregation** | Each upstream service has its own focused interface with a single method. The orchestrator interface exposes only `orchestrate(ProductRequest)`. No client is forced to depend on methods it does not use. |
 | **Dependency Inversion** | The orchestrator depends on abstract service interfaces (`CatalogService`, `PricingService`, etc.), not on concrete mock implementations. The `AggregationOrchestrator` interface decouples the service layer from the orchestration strategy. |
+
+Dependency wiring follows standard Spring constructor injection with a single constructor per bean, which keeps dependencies explicit and testable without field injection.
 
 ### 7. Observability and Production Readiness
 

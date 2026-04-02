@@ -2,15 +2,17 @@ package com.tccc.aggregator.service.upstream.mock;
 
 import com.tccc.aggregator.domain.CustomerInfo;
 import com.tccc.aggregator.service.upstream.CustomerService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @Service
 class MockCustomerService implements CustomerService {
+
+    private static final Logger log = LoggerFactory.getLogger(MockCustomerService.class);
 
     private static final long TYPICAL_LATENCY_MS = 60;
     private static final double RELIABILITY_PCT = 99.0;

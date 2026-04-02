@@ -2,16 +2,18 @@ package com.tccc.aggregator.service.upstream.mock;
 
 import com.tccc.aggregator.domain.PricingInfo;
 import com.tccc.aggregator.service.upstream.PricingService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Map;
 
-@Slf4j
 @Service
 class MockPricingService implements PricingService {
+
+    private static final Logger log = LoggerFactory.getLogger(MockPricingService.class);
 
     private static final long TYPICAL_LATENCY_MS = 80;
     private static final double RELIABILITY_PCT = 99.5;

@@ -5,8 +5,8 @@ import com.tccc.aggregator.domain.AggregatedProductResponse.DataSourceStatus;
 import com.tccc.aggregator.domain.AggregatedProductResponse.DataSourceStatus.Status;
 import com.tccc.aggregator.domain.AggregatedProductResponse.ResponseMetadata;
 import com.tccc.aggregator.service.upstream.*;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,10 +20,10 @@ import java.util.Map;
 import java.util.concurrent.*;
 import java.util.function.Supplier;
 
-@Slf4j
 @Component
-@RequiredArgsConstructor
 class ParallelAggregationOrchestrator implements AggregationOrchestrator {
+
+    private static final Logger log = LoggerFactory.getLogger(ParallelAggregationOrchestrator.class);
 
     private final CatalogService catalogService;
     private final PricingService pricingService;
@@ -31,6 +31,20 @@ class ParallelAggregationOrchestrator implements AggregationOrchestrator {
     private final CustomerService customerService;
     @Qualifier("virtualThreadExecutor")
     private final ExecutorService executor;
+
+    ParallelAggregationOrchestrator(
+            CatalogService catalogService,
+            PricingService pricingService,
+            AvailabilityService availabilityService,
+            CustomerService customerService,
+            @Qualifier("virtualThreadExecutor") ExecutorService executor
+    ) {
+        this.catalogService = catalogService;
+        this.pricingService = pricingService;
+        this.availabilityService = availabilityService;
+        this.customerService = customerService;
+        this.executor = executor;
+    }
 
     @Value("${aggregator.timeout.catalog-ms:500}")
     private long catalogTimeoutMs;

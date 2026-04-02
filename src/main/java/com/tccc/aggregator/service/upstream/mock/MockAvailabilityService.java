@@ -2,16 +2,18 @@ package com.tccc.aggregator.service.upstream.mock;
 
 import com.tccc.aggregator.domain.AvailabilityInfo;
 import com.tccc.aggregator.service.upstream.AvailabilityService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-@Slf4j
 @Service
 class MockAvailabilityService implements AvailabilityService {
+
+    private static final Logger log = LoggerFactory.getLogger(MockAvailabilityService.class);
 
     private static final long TYPICAL_LATENCY_MS = 100;
     private static final double RELIABILITY_PCT = 98.0;

@@ -3,15 +3,17 @@ package com.tccc.aggregator.service.upstream.mock;
 import com.tccc.aggregator.domain.CatalogInfo;
 import com.tccc.aggregator.service.upstream.CatalogService;
 import com.tccc.aggregator.service.upstream.UpstreamServiceException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @Service
 class MockCatalogService implements CatalogService {
+
+    private static final Logger log = LoggerFactory.getLogger(MockCatalogService.class);
 
     private static final long TYPICAL_LATENCY_MS = 50;
     private static final double RELIABILITY_PCT = 99.9;
